@@ -1,6 +1,21 @@
-# Grupo1-LS
+# Software para Cálculo de comissões da PlenoSono Ltda.
 
 ## Execução
-Para executar utilize o python3 usando um virtual environment com todos os requisitos do requirements.txt instalados.
-## Teste
-Testes Unitarios serão implementados no sprint2, porém podem ficar a vontade para testar a execução.
+
+Para usar o programa, instale os pacotes necessários usando 'pip install -r requirements.txt' e depois execute o arquivo 'main.py'.
+
+```bash
+pip install -r requirements.txt
+```
+
+## Utilização
+
+A partir do menu principal, são apresentadas 4 opções:
+* Cadastrar Distribuidor
+* Alterar Distribuidor
+* Gerar Relatório
+* Visualizar Distribuidor
+
+Apenas o menu de cadastro funciona no momento, possibilitando informar dados do distribuidor e checar a sua validade.
+
+Copyright 2020 César Carpeggiani, Franco Gatelli e Rubens Onzi
