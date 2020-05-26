@@ -90,7 +90,7 @@ def tratar_cnpj(cnpj: str):
         )
 
     algorismos = list(cnpj_str)
-    if len(algorismos) > 14:
+    if not len(algorismos) == 14:
         raise ErroTratamento(
             'CNPJ digitado incorretamente.'
         )
