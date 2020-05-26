@@ -18,4 +18,4 @@ A partir do menu principal, são apresentadas 4 opções:
 
 Apenas o menu de cadastro funciona no momento, possibilitando informar dados do distribuidor e checar a sua validade.
 
-Copyright 2020 César Carpeggiani, Franco Gatelli e Rubens Onzi
+Copyright 2020 César Carpeggiani, Franco Gatelli, Rubens Onzi e Vincius Casagrande
