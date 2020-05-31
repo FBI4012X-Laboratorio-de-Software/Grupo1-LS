@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 
 class Vendas(object):
@@ -7,6 +7,12 @@ class Vendas(object):
         self._data: datetime = args[0]
         self._valor_venda: float = args[1]
         self._id_distribuidor: int = args[2]
+
+    def __str__(self) -> str:
+
+        return f'{self._data} \
+            {self._valor_venda} \
+            {self._id_distribuidor}'
 
     def get_data(self) -> datetime:
         return self._data

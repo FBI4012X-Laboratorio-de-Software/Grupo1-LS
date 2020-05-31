@@ -10,6 +10,16 @@ class Distribuidor(object):
         self._nome_pai: str = args[5]
         self._pecas_vendidas: float = args[6]
 
+    def __str__(self) -> str:
+
+        return f'{self._dist_id} \
+        {self._dist_nome} \
+        {self._cnpj} \
+        {self._contato} \n\
+        {self._nivel} \
+        {self._nome_pai} \
+        {self._pecas_vendidas}'
+
     def get_dist_id(self) -> int:
         return self._dist_id
 

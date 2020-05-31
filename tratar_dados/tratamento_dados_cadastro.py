@@ -1,13 +1,16 @@
-
-from tratar_dados.puxar_dados import puxar_dados
-from tratar_dados.atualizar_dados import atualizar_dados
+from tratar_dados.serializacao.distribuidor_DAO import DistribuidorDAO
+from tratar_dados.serializacao.vendas_DAO import VendasDAO
 from estrutura_dados.distrbuidor import Distribuidor
 from tratar_dados.erro_tratamento import ErroTratamento
 
+
 def tratamento_registro_cadastro(*args):
     """nome, cnpj, contato, nivel, nome_pai, pecas_vendidas"""
+    dist_dao = DistribuidorDAO()
+    vendas_dao = VendasDAO()
 
-    dados_vendas, dados_dist = puxar_dados()
+    dados_vendas = vendas_dao.load_data()
+    dados_dist = dist_dao.load_data()
 
     result = verificar_conteudo_dos_dados(dados_dist, *args)
 
@@ -15,7 +18,8 @@ def tratamento_registro_cadastro(*args):
         return result.get_msg()
     if type(result) == Distribuidor:
         dados_dist.append(result)
-        atualizar_dados(dados_vendas, dados_dist)
+        vendas_dao.save_data(dados_vendas)
+        dados_dist.save_data(dados_dist)
 
     return 'Sucesso'
 
@@ -23,7 +27,6 @@ def tratamento_registro_cadastro(*args):
 def verificar_conteudo_dos_dados(
     dados_dist: list,
     *args: tuple,
-
 ):
     try:
         tratar_nome(args[0])
@@ -139,17 +142,18 @@ def cpf_iter(algorismos: list, start: int):
 
 def tratar_nivel(nivel: str):
 
-    niveis_list = []
-    with open('.niveis', 'r') as niveis_file:
-        niveis_list = niveis_file.readlines()
+    niveis_dict = load_niveis_data()
 
-    if not nivel.upper() in niveis_list:
+    if not nivel.upper() in niveis_dict['NIVEL'].values():
         raise ErroTratamento(
             'Não foi possivel Encontrar o nivel inserido'
         )
 
 
-def tratar_nome_pai(nome_pai, dados_dist: list):
+def tratar_nome_pai(nome_pai: str, dados_dist):
+
+    if not nome_pai:
+        return
 
     nome_pai = nome_pai.upper()
 
