@@ -1,5 +1,6 @@
 from tratar_dados.serializacao.distribuidor_DAO import DistribuidorDAO
 from tratar_dados.serializacao.vendas_DAO import VendasDAO
+from tratar_dados.load_niveis import load_niveis_data
 from estrutura_dados.distrbuidor import Distribuidor
 from tratar_dados.erro_tratamento import ErroTratamento
 
@@ -53,24 +54,13 @@ def verificar_conteudo_dos_dados(
     except ErroTratamento as e:
         return e
 
-   
-def tratar_id(dist_id, dados_dist) -> None:
-
-    try:
-        dist_id = int(dist_id)
-    except Exception:
-        raise ErroTratamento(
-            'Não foi possivel tratar o id. Digitou Corretamente?'
-        )
-
-    for dist in dados_dist:
-        if dist.get_dist_id() == id:
-            raise ErroTratamento(
-                'Id Já inserido'
-            )
-
 
 def tratar_nome(to_be_string) -> None:
+
+    if not to_be_string:
+        raise ErroTratamento(
+            'Não foi possivel tratar o nome. Deixou em branco?'
+        )
 
     try:
         to_be_string = str(to_be_string)
@@ -141,6 +131,11 @@ def cpf_iter(algorismos: list, start: int):
 
 
 def tratar_nivel(nivel: str):
+
+    if not nivel:
+        raise ErroTratamento(
+            'Não foi possivel tratar o nivel. Deixou em branco?'
+        )
 
     niveis_dict = load_niveis_data()
 

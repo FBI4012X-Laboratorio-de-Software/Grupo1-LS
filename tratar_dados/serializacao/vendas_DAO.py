@@ -8,6 +8,7 @@ class VendasDAO(DAO):
         super().__init__()
 
     def load_data(self):
+        print(self.config)
         file_path = self.config.get('serializacao', 'vendas_path')
 
         lista_objeto = []
@@ -22,6 +23,7 @@ class VendasDAO(DAO):
         return lista_objeto
 
     def save_data(self, obj_list):
+        print(self.config)
         file_path = self.config.get('serializacao', 'vendas_path')
 
         if os.path.exists(file_path):

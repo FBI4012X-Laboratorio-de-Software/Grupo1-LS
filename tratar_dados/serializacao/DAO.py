@@ -1,11 +1,13 @@
 from configparser import RawConfigParser
 import os
 
+
 class DAO(object):
 
     def __init__(self):
         config = RawConfigParser()
-        self.config = config.read('.config.cfg')
+        config.read('.config.cfg')
+        self.config = config
 
     def load_data(self):
         pass
