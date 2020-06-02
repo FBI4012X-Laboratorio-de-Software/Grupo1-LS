@@ -22,12 +22,15 @@ class DistribuidorDAO(DAO):
         return lista_objeto
 
     def save_data(self, obj_list):
+
+        lista_objeto = self.load_data()
         file_path = self.config.get('serializacao', 'dist_path')
+        lista_objeto.append(obj_list)
 
         if os.path.exists(file_path):
             with open(file_path, 'wb') as load_file:
                 try:
-                    pickle.dump(obj_list, load_file)
+                    pickle.dump(lista_objeto, load_file)
                 except Exception as e:
                     print(f'bota um log aqui pelamor de deus\n{e}')
 

@@ -8,22 +8,17 @@ from tratar_dados.erro_tratamento import ErroTratamento
 def tratamento_registro_cadastro(*args):
     """nome, cnpj, contato, nivel, nome_pai, pecas_vendidas"""
     dist_dao = DistribuidorDAO()
-    vendas_dao = VendasDAO()
 
-    dados_vendas = vendas_dao.load_data()
     dados_dist = dist_dao.load_data()
 
     result = verificar_conteudo_dos_dados(dados_dist, *args)
 
-    if type(result) == ErroTratamento:
-        return result.get_msg()
-    if type(result) == Distribuidor:
-        dados_dist.append(result)
-        vendas_dao.save_data(dados_vendas)
-        dados_dist.save_data(dados_dist)
+    if isinstance(result, Distribuidor):
 
-    return 'Sucesso'
+        dist_dao.save_data(result)
+        return 'Sucesso'
 
+    return result.get_msg()
 
 def verificar_conteudo_dos_dados(
     dados_dist: list,
@@ -53,6 +48,8 @@ def verificar_conteudo_dos_dados(
         tratar_float(args[5])
     except ErroTratamento as e:
         return e
+
+    return Distribuidor(*args)
 
 
 def tratar_nome(to_be_string) -> None:
@@ -166,5 +163,5 @@ def tratar_float(to_be_float: str):
         to_be_float = float(to_be_float)
     except Exception:
         raise ErroTratamento(
-            'Não foi possivel tratar o nome. Digitou Corretamente?'
+            'Não foi possivel tratar as peças. Digitou Corretamente?'
         )

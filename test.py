@@ -4,6 +4,8 @@ from tratar_dados.tratamento_dados_cadastro import \
     tratar_cnpj, tratar_nivel
 from tratar_dados.load_niveis import load_niveis_data
 from tratar_dados.erro_tratamento import ErroTratamento
+from tratar_dados.serializacao.distribuidor_DAO import DistribuidorDAO
+from estrutura_dados.distrbuidor import Distribuidor
 
 
 class TestTratarCNPJ(TestCase):
@@ -38,8 +40,10 @@ class TestTratarClasse(TestCase):
         tratar_nivel('DISTRIBUIDOR')
 
     def test_load_niveis(self):
-        load_niveis_data()
-
+        a = DistribuidorDAO()
+        b = a.load_data()
+        for c in b:
+            print(str(c))
 
 if __name__ == '__main__':
     unittest.main()
