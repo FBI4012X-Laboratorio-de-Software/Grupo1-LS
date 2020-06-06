@@ -148,10 +148,10 @@ def tratar_nome_pai(nome_pai: str, dados_dist):
         return
 
     nome_pai = nome_pai.upper()
-
     for distribuidor in dados_dist:
-        if distribuidor.get_nome_pai() == nome_pai:
+        if distribuidor.get_dist_nome() == nome_pai:
             return
+
     raise ErroTratamento(
         'Não foi possivel Encontrar o nome do pai, Digitou Corretamente'
     )

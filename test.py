@@ -6,6 +6,8 @@ from tratar_dados.load_niveis import load_niveis_data
 from tratar_dados.erro_tratamento import ErroTratamento
 from tratar_dados.serializacao.distribuidor_DAO import DistribuidorDAO
 from estrutura_dados.distrbuidor import Distribuidor
+from internal.get_filhos import busca_filhos_dist
+
 
 
 class TestTratarCNPJ(TestCase):
@@ -44,6 +46,29 @@ class TestTratarClasse(TestCase):
         b = a.load_data()
         for c in b:
             print(str(c))
+
+
+class TestChecarPegacerto(TestCase):
+
+    def setUp(self):
+        pass
+
+    def read_test_dist(self):
+        with open('testes/test_dist.txt') as test_file:
+            lines = [line.rstrip().split(',') for line in test_file]
+        return lines
+
+    def test_get_filhos(self):
+        lines = self.read_test_dist()
+        dist_list = []
+        return_list = []
+        for line in lines:
+            dist_list.append(Distribuidor(*line))
+
+        dit = Distribuidor('nene', 0, 44, 'Distribuidor', '', 2)
+        to_read_list = [(dit, 0)]
+        busca_filhos_dist(to_read_list, dist_list, return_list)
+
 
 if __name__ == '__main__':
     unittest.main()

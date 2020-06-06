@@ -1,6 +1,6 @@
 class Distribuidor(object):
     def __init__(self, *args) -> None:
-        """id , nome, cnpj, contato, nivel, nome_pai, pecas_vendidas"""
+        """ nome, cnpj, contato, nivel, nome_pai, pecas_vendidas"""
 
         self._dist_nome: str = args[0]
         self._cnpj: int = args[1]
@@ -17,9 +17,6 @@ class Distribuidor(object):
         {self._nivel} \
         {self._nome_pai} \
         {self._pecas_vendidas}'
-
-    def get_dist_id(self) -> int:
-        return self._dist_id
 
     def get_dist_nome(self) -> str:
         return self._dist_nome
