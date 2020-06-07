@@ -24,14 +24,21 @@ def front():
                 pai.get().upper(),
                 pecas.get().upper()
             )
-            print(res)
             resultado = Toplevel(cadastro)
+            resultado.geometry('250x70')
             resposta = Label(resultado, text = res, font = 25, padx = 25, pady = 10)
             ok = Button(resultado, text = "Confirmar", command = resultado.destroy)
 
             resposta.pack()
             ok.pack()
-            
+
+            if resposta == 'Sucesso':
+                nome.delete(0,'END')
+                cnpj.delete(0,'END')
+                contato.delete(0,'END')
+                nf.delete(0,'END')
+                pai.delete(0,'END')
+                pecas.delete(0,'END')
 
         cadastro = Toplevel(root)
         cadastro.geometry("500x500")
@@ -40,7 +47,7 @@ def front():
         mens1 = Label(cadastro, text = "Nome Real", font = 25, padx = 50, pady = 25)
         mens2 = Label(cadastro, text = "CNPJ", font = 25, padx = 50, pady = 25)
         mens3 = Label(cadastro, text = "Contato", font = 25, padx = 50, pady = 25)
-        mens4 = Label(cadastro, text = "Niível de Formação", font = 50, padx = 25, pady = 25)
+        mens4 = Label(cadastro, text = "Nível de Formação", font = 50, padx = 25, pady = 25)
         mens5 = Label(cadastro, text = "Nome do Pai", font = 25, padx = 50, pady = 25)
         mens6 = Label(cadastro, text = "Peças vendidas", font = 25, padx = 50, pady = 25)
 
@@ -69,6 +76,23 @@ def front():
 
         confirmar.grid(row = 6, column = 0)
 
+    def vis():
+
+        def confirm():
+            cn = cnpjf.get()
+            
+        visualizar = Toplevel(root)
+        visualizar.geometry("500x500")
+        visualizar.title("Visualizar Distribuidor")
+        
+        mens7 = Label(visualizar, text = "Informe o CNPJ", font = 25, padx = 50, pady = 25)
+        mens7.grid(row = 0, column = 0)
+        cnpjf = Entry(visualizar, width = 30, font = 25)
+        cnpjf.grid(row = 0, column = 1)
+
+        conf = Button(visualizar, text = "Confirmar", font = 20, command = confirm)
+        conf.grid(row = 1, column = 0)
+
     def alt():
         altCadastro = Toplevel(root)
         altCadastro.geometry("500x500")
@@ -79,10 +103,7 @@ def front():
         gera.geometry("500x500")
         gera.title("Gerar Relatório")
 
-    def vis():
-        visualizar = Toplevel(root)
-        visualizar.geometry("500x500")
-        visualizar.title("Visualizar Distribuidor")
+
 
     Cadas_Dist = Button(root, text = "Cadastrar Distribuidor", font = 20, command = cad)
     Alt_Dist = Button(root, text = "Alterar Distribuidor", font = 20, command = alt)
