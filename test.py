@@ -65,7 +65,7 @@ class TestChecarPegacerto(TestCase):
         for line in lines:
             dist_list.append(Distribuidor(*line))
 
-        dit = Distribuidor('nene', 0, 44, 'Distribuidor', '', 2)
+        dit = Distribuidor('popo', 0, 44, 'Distribuidor', '', 2)
         to_read_list = [(dit, 0)]
         busca_filhos_dist(to_read_list, dist_list, return_list)
 
