@@ -8,7 +8,7 @@ def front():
     root.geometry("550x500")
     root.title('Pleno Sono')
 
-    logo = ImageTk.PhotoImage(Image.open("logo.png"))
+    logo = ImageTk.PhotoImage(Image.open("plenosono.png"))
     lg = Label(image = logo)
 
 
