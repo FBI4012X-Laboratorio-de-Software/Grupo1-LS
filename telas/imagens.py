@@ -11,7 +11,6 @@ def front():
     logo = ImageTk.PhotoImage(Image.open("plenosono.png"))
     lg = Label(image = logo)
 
-
     def cad():
 
         def confi():
@@ -32,13 +31,13 @@ def front():
             resposta.pack()
             ok.pack()
 
-            if resposta == 'Sucesso':
-                nome.delete(0,'END')
-                cnpj.delete(0,'END')
-                contato.delete(0,'END')
-                nf.delete(0,'END')
-                pai.delete(0,'END')
-                pecas.delete(0,'END')
+            if res == 'Sucesso':
+                nome.delete(0, 'END')
+                cnpj.delete(0, 'END')
+                contato.delete(0, 'END')
+                nf.delete(0, 'END')
+                pai.delete(0, 'END')
+                pecas.delete(0, 'END')
 
         cadastro = Toplevel(root)
         cadastro.geometry("500x500")
