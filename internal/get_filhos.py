@@ -14,7 +14,7 @@ def get_filhos(random_entrada):
 def cpf_compare(random_entrada):
     dist_dao = DistribuidorDAO()
     dist_list = dist_dao.load_data()
-
+    
     return_list = []
 
     for distribuidor in dist_list:
@@ -35,7 +35,7 @@ def name_compare(random_entrada):
     return_list = []
 
     for distribuidor in dist_list:
-        if distribuidor.get_cnpj() != random_entrada:
+        if distribuidor.get_dist_nome() != random_entrada.upper():
             continue
         to_read_list = [(distribuidor, 0)]
 

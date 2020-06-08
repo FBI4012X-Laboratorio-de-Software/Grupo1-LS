@@ -68,8 +68,8 @@ class TestChecarPegacerto(TestCase):
         dit = Distribuidor('popo', 0, 44, 'Distribuidor', '', 2)
         to_read_list = [(dit, 0)]
         busca_filhos_dist(to_read_list, dist_list, return_list)
-        for list in return_list:
-            print(str(list))
+        for lists in return_list:
+            print(lists)
 
 if __name__ == '__main__':
     unittest.main()

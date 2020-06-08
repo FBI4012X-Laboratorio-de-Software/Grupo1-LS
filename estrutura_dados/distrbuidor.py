@@ -2,8 +2,9 @@ from datetime import date
 
 
 class Distribuidor(object):
+
     def __init__(self, *args) -> None:
-        """id , nome, cnpj, contato, nivel, nome_pai, pecas_vendidas, last_up(date)"""
+        """nome, cnpj, contato, nivel, nome_pai, pecas_vendidas, last_up"""
 
         self._dist_nome: str = args[0]
         self._cnpj: int = args[1]
@@ -12,10 +13,16 @@ class Distribuidor(object):
         self._nome_pai: str = args[4]
         self._pecas_vendidas: float = args[5]
         self._last_update: date = date.today()
-        self._n_dist_formado: int
+        self._n_dist_formado: int = 0
+    
+    def __str__(self) -> str:
 
-    def get_dist_id(self) -> int:
-        return self._dist_id
+        return f'Nome: {self._dist_nome} \
+        CNPJ: {self._cnpj} \
+        Contato{self._contato} \
+        Nível: {self._nivel} \
+        Pai: {self._nome_pai} \
+        Peças: {self._pecas_vendidas}\n'
 
     def get_dist_nome(self) -> str:
         return self._dist_nome
