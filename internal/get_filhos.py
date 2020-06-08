@@ -14,7 +14,7 @@ def get_filhos(random_entrada):
 def cpf_compare(random_entrada):
     dist_dao = DistribuidorDAO()
     dist_list = dist_dao.load_data()
-    
+
     return_list = []
 
     for distribuidor in dist_list:
