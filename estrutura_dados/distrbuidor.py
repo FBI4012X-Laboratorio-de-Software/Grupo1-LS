@@ -1,3 +1,5 @@
+from datetime import date
+
 class Distribuidor(object):
     def __init__(self, *args) -> None:
         """id , nome, cnpj, contato, nivel, nome_pai, pecas_vendidas, last_up(date)"""
