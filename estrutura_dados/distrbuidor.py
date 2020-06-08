@@ -36,8 +36,11 @@ class Distribuidor(object):
     def get_n_dist_formado(self) -> int:
         return self._n_dist_formado
 
-    def get_last_update(self) -> str:
+    def get_last_update(self) -> date:
         return self._last_update
+
+    def set_last_update(self, last_update) -> date:
+        self._last_update = last_update
 
     def set_nivel(self, nivel) -> str:
         self._nivel = nivel

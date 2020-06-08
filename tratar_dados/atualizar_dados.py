@@ -3,6 +3,7 @@ from estrutura_dados.distrbuidor import Distribuidor
 from estrutura_dados.vendas import Vendas
 from tratar_dados.serializar import serializar
 from tratar_dados.puxar_dados import puxar_dados
+from datetime import date
 
 
 def atualizar_dados(
@@ -43,5 +44,7 @@ def atualizar_dsitribuidor (dist : Distribuidor, pecas):
     
     dist.set_pecas_vendidas(pecas)
     dist.set_nivel(nivel)
+
+    dist.set_last_update(date.today())
 
     return dist
