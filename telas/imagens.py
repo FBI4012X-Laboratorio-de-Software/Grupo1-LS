@@ -1,6 +1,7 @@
 from tkinter import Label, Toplevel, Tk, Button, Entry
 from PIL import ImageTk, Image
 from tratar_dados.tratamento_dados_cadastro import tratamento_registro_cadastro
+from internal.get_filhos import get_filhos
 global tupla
 
 def front():
@@ -8,11 +9,12 @@ def front():
     root.geometry("550x500")
     root.title('Pleno Sono')
 
-    logo = ImageTk.PhotoImage(Image.open("plenosono.png"))
+    logo = ImageTk.PhotoImage(Image.open("logo.png"))
     lg = Label(image = logo)
 
-    def cad():
 
+    def cad():
+        
         def confi():
 
             res = tratamento_registro_cadastro(
@@ -23,24 +25,36 @@ def front():
                 pai.get().upper(),
                 pecas.get().upper()
             )
-            resultado = Toplevel(cadastro)
-            resultado.geometry('250x70')
-            resposta = Label(resultado, text = res, font = 25, padx = 25, pady = 10)
-            ok = Button(resultado, text = "Confirmar", command = resultado.destroy)
+            
+            if res != "Sucesso":
+                resultado = Toplevel(cadastro)
+                resultado.geometry("300x80")
 
-            resposta.pack()
-            ok.pack()
+                resposta = Label(resultado, text = res, font = 25, padx = 25, pady = 10)
+                ok = Button(resultado, text = "Confirmar", font = 25, command = resultado.destroy)
 
-            if res == 'Sucesso':
-                nome.delete(0, 'END')
-                cnpj.delete(0, 'END')
-                contato.delete(0, 'END')
-                nf.delete(0, 'END')
-                pai.delete(0, 'END')
-                pecas.delete(0, 'END')
+                resposta.pack()
+                ok.pack()
+            else:
+                sucesso = Toplevel(cadastro)
+                sucesso.geometry("300x80")
+
+                nome.delete(0, 'end')
+                cnpj.delete(0, 'end') 
+                contato.delete(0, 'end')
+                nf.delete(0, 'end')
+                pai.delete(0, 'end')
+                pecas.delete(0, 'end')
+
+                cadsuc = Label(sucesso, text = "Cadastro feito com sucesso!", font = 25, padx = 25, pady = 10)
+                ok2 = Button(sucesso, text = "Confirmar", font = 25, command = sucesso.destroy)
+
+                cadsuc.pack()
+                ok2.pack()
+            return
 
         cadastro = Toplevel(root)
-        cadastro.geometry("500x500")
+        cadastro.geometry("520x500")
         cadastro.title("Cadastro")
 
         mens1 = Label(cadastro, text = "Nome Real", font = 25, padx = 50, pady = 25)
@@ -71,26 +85,56 @@ def front():
         pai.grid(row = 4, column = 1)
         pecas.grid(row = 5, column = 1)
 
-        confirmar = Button(cadastro, text = "Confirmar", font = 20, command = confi)
-
+        confirmar = Button(cadastro, text = "Confirmar", font = 25, command = confi)
         confirmar.grid(row = 6, column = 0)
+
+        volt1 = Button(cadastro, text = "Voltar", font = 25, command = cadastro.destroy)
+        volt1.grid(row = 6, column = 1)
 
     def vis():
 
         def confirm():
-            cn = cnpjf.get()
+            labels = []
+            cn = get_filhos(cnpjf.get().upper())
             
+            visu = Toplevel(visualizar)
+            
+            del labels[:] # remove any previous labels from if the callback was called before
+
+            if not cn:
+                visu.geometry("400x70")
+                nomeNulo = Label(visu, text = "Nome em branco ou nenhuma relação encontrada.", font = 25)
+                nomeNulo.pack()
+                volt2 = Button(visu, text = "Voltar", font = 25, command = visu.destroy)
+                volt2.pack()
+                return
+
+            cont = 0
+            
+
+            for i in cn:
+
+                labels = Label(visu, text = str(i))
+                labels.grid(row = cont, column = 0)
+                cont += 1
+
+            xiao = Button(visu, text = "Confirmar", command = visu.destroy)
+            xiao.pack()
+                            
         visualizar = Toplevel(root)
-        visualizar.geometry("500x500")
+        visualizar.geometry("500x120")
         visualizar.title("Visualizar Distribuidor")
         
-        mens7 = Label(visualizar, text = "Informe o CNPJ", font = 25, padx = 50, pady = 25)
+        mens7 = Label(visualizar, text = "Informe o CNPJ ou nome", font = 25, padx = 50, pady = 25)
         mens7.grid(row = 0, column = 0)
-        cnpjf = Entry(visualizar, width = 30, font = 25)
+        cnpjf = Entry(visualizar, width = 20, font = 25)
         cnpjf.grid(row = 0, column = 1)
 
-        conf = Button(visualizar, text = "Confirmar", font = 20, command = confirm)
-        conf.grid(row = 1, column = 0)
+        volt = Button(visualizar, text = "Voltar", font = 25, command = visualizar.destroy)
+        volt.grid(row = 1, column = 0)
+
+        conf = Button(visualizar, text = "Confirmar", font = 25, command = confirm)
+        conf.grid(row = 1, column = 1)
 
     def alt():
         altCadastro = Toplevel(root)
@@ -104,10 +148,10 @@ def front():
 
 
 
-    Cadas_Dist = Button(root, text = "Cadastrar Distribuidor", font = 20, command = cad)
-    Alt_Dist = Button(root, text = "Alterar Distribuidor", font = 20, command = alt)
-    Ger_Rel = Button(root, text = "Gerar Relatório", font = 20, command = gerar)
-    Vis_Dist = Button(root, text = "Visualizar Distribuidor", font = 20, command = vis)
+    Cadas_Dist = Button(root, text = "Cadastrar Distribuidor", font = 25, command = cad)
+    Alt_Dist = Button(root, text = "Alterar Distribuidor", font = 25, command = alt)
+    Ger_Rel = Button(root, text = "Gerar Relatório", font = 25, command = gerar)
+    Vis_Dist = Button(root, text = "Visualizar Distribuidor", font = 25, command = vis)
 
     Cadas_Dist.grid(row = 0, column = 0, padx = 50, pady = 50)
     Alt_Dist.grid(row = 0, column = 1, padx = 50, pady = 50)
