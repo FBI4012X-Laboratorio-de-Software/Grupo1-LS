@@ -4,18 +4,23 @@ class Distribuidor(object):
     def __init__(self, *args) -> None:
         """id , nome, cnpj, contato, nivel, nome_pai, pecas_vendidas, last_up(date)"""
 
-        self._dist_id: int = args[0]
-        self._dist_nome: str = args[1]
-        self._cnpj: int = args[2]
-        self._contato: int = args[3]
-        self._nivel: str = args[4]
-        self._nome_pai: str = args[5]
-        self._pecas_vendidas: float = args[6]
-        self._last_update: str
-        self._n_dist_formado: int
+        self._dist_nome: str = args[0]
+        self._cnpj: int = args[1]
+        self._contato: int = args[2]
+        self._nivel: str = args[3]
+        self._nome_pai: str = args[4]
+        self._pecas_vendidas: float = args[5]
+        self._last_update: date = date.today()
+        self._n_dist_formado: int = 0
+    
+    def __str__(self) -> str:
 
-    def get_dist_id(self) -> int:
-        return self._dist_id
+        return f'Nome: {self._dist_nome} \
+        CNPJ: {self._cnpj} \
+        Contato{self._contato} \
+        Nível: {self._nivel} \
+        Pai: {self._nome_pai} \
+        Peças: {self._pecas_vendidas}\n'
 
     def get_dist_nome(self) -> str:
         return self._dist_nome
