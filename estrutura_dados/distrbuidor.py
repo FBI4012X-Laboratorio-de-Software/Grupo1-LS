@@ -1,10 +1,8 @@
 from datetime import date
 
-
 class Distribuidor(object):
-
     def __init__(self, *args) -> None:
-        """nome, cnpj, contato, nivel, nome_pai, pecas_vendidas, last_up"""
+        """id , nome, cnpj, contato, nivel, nome_pai, pecas_vendidas, last_up(date)"""
 
         self._dist_nome: str = args[0]
         self._cnpj: int = args[1]
@@ -47,6 +45,9 @@ class Distribuidor(object):
 
     def get_last_update(self) -> date:
         return self._last_update
+
+    def set_last_update(self, last_update) -> date:
+        self._last_update = last_update
 
     def set_nivel(self, nivel) -> str:
         self._nivel = nivel
