@@ -2,6 +2,7 @@ from tkinter import Label, Toplevel, Tk, Button, Entry
 from PIL import ImageTk, Image
 from tratar_dados.tratamento_dados_cadastro import tratamento_registro_cadastro
 from internal.get_filhos import get_filhos
+
 global tupla
 
 def front():
@@ -108,18 +109,40 @@ def front():
                 volt2 = Button(visu, text = "Voltar", font = 25, command = visu.destroy)
                 volt2.pack()
                 return
-
-            cont = 0
             
+            newList = []
+            
+            nomehead = Label(visu, text = "Nome", font = 20, padx = 10, pady =10)
+            cnpjhead = Label(visu, text = "CNPJ", font = 20, padx = 10, pady =10)
+            contatohead = Label(visu, text = "Contato", font = 20, padx = 10, pady =10)
+            nivelhead = Label(visu, text = "Nível", font = 20, padx = 10, pady =10)
+            paihead = Label(visu, text = "Pai", font = 20, padx = 10, pady =10)
+            pecashead = Label(visu, text = "Peças", font = 20, padx = 10, pady =10)
+
+            nomehead.grid(row = 0, column = 0, sticky = "W" )
+            cnpjhead.grid(row = 0, column = 1, sticky = "W" )
+            contatohead.grid(row = 0, column = 2, sticky = "W" )
+            nivelhead.grid(row = 0, column = 3, sticky = "W" )
+            paihead.grid(row = 0, column = 4, sticky = "W" )
+            pecashead.grid(row = 0, column = 5, sticky = "W" )
 
             for i in cn:
+                newList.append(str(i).split(","))
 
-                labels = Label(visu, text = str(i))
-                labels.grid(row = cont, column = 0)
-                cont += 1
+            rowk = 1
 
-            xiao = Button(visu, text = "Confirmar", command = visu.destroy)
-            xiao.pack()
+            for i in newList:
+
+                column = 0
+
+                for j in i:
+                    labels = Label(visu, text = j)
+                    labels.grid(row = rowk, column = column, padx = 10, pady =10, sticky = "W")
+                    column +=1
+                rowk += 1
+
+            xiao = Button(visu, text = "Confirmar", font = 20, command = visu.destroy)
+            xiao.grid(row = rowk, column = 2)
                             
         visualizar = Toplevel(root)
         visualizar.geometry("500x120")

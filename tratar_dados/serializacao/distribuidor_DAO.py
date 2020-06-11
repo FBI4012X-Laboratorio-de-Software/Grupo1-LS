@@ -1,5 +1,6 @@
 import os
 import pickle
+import logging
 from tratar_dados.serializacao.DAO import DAO
 
 
@@ -17,7 +18,11 @@ class DistribuidorDAO(DAO):
                 try:
                     lista_objeto = pickle.load(load_file)
                 except Exception as e:
-                    print(f'bota um log aqui pelamor de deus\n{e}')
+                    logging.warning('Erro ao carregar arquivo de distribuidor: ' + e)
+        else:
+            logging.error('Erro ao carregar arquivo de distribuidor: caminho ' + file_path + ' nao existe')    
+
+        logging.debug('Arquivo de distribuidor carregado.')
 
         return lista_objeto
 
@@ -32,7 +37,11 @@ class DistribuidorDAO(DAO):
                 try:
                     pickle.dump(lista_objeto, load_file)
                 except Exception as e:
-                    print(f'bota um log aqui pelamor de deus\n{e}')
+                    logging.warning('Erro ao salvar arquivo de distribuidor: ' + e)
+        else:
+            logging.error('Erro ao salvar arquivo de distribuidor: caminho ' + file_path + ' nao existe')   
+
+        logging.debug('Arquivo de distribuidor salvo.')
 
     def update_data(self, obj_list):
         self.save_data(obj_list)

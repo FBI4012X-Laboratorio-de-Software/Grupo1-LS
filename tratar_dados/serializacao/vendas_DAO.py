@@ -1,5 +1,6 @@
 import os
 import pickle
+import logging
 from tratar_dados.serializacao.DAO import DAO
 
 
@@ -18,7 +19,9 @@ class VendasDAO(DAO):
                 try:
                     lista_objeto = pickle.load(load_file)
                 except Exception as e:
-                    print(f'bota um log aqui pelamor de deus\n{e}')
+                    logging.error('Erro ao carregar arquivo de vendas: ' + e)
+        else:
+            logging.error('Erro ao carregar arquivo de vendas: caminho ' + file_path + ' nao existe')    
 
         return lista_objeto
 
@@ -34,7 +37,9 @@ class VendasDAO(DAO):
                 try:
                     pickle.dump(lista_objeto, load_file)
                 except Exception as e:
-                    print(f'bota um log aqui pelamor de deus\n{e}')
+                    logging.error('Erro ao salvar arquivo de vendas: ' + e)
+        else:
+            logging.error('Erro ao salvar arquivo de vendas: caminho ' + file_path + ' nao existe')    
 
     def update_data(self, obj_list):
         self.save_data(obj_list)
