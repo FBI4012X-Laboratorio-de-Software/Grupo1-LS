@@ -112,7 +112,6 @@ def tratar_cnpj(cnpj: str):
             'CNPJ digitado incorretamente.'
         )
 
-
 def cpf_iter(algorismos: list, start: int):
     soma = 0
     j = 2
