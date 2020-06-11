@@ -162,10 +162,10 @@ def tratar_float(to_be_float: str):
     if len(to_be_float.split(',')) == 2:
         string_am_format = to_be_float.split(',')
         to_be_float = f'{string_am_format[0]}.{string_am_format[1]}'
-
     try:
         to_be_float = float(to_be_float)
     except Exception:
         raise ErroTratamento(
             'Não foi possivel tratar as peças. Digitou Corretamente?'
         )
+    return to_be_float

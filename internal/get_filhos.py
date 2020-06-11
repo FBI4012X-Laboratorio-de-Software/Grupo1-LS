@@ -37,6 +37,7 @@ def name_compare(random_entrada):
     for distribuidor in dist_list:
         if distribuidor.get_dist_nome() != random_entrada.upper():
             continue
+        return_list.append(distribuidor)
         to_read_list = [(distribuidor, 0)]
 
         busca_filhos_dist(to_read_list, dist_list, return_list)
