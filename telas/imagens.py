@@ -1,7 +1,8 @@
-from tkinter import Label, Toplevel, Tk, Button, Entry
+from tkinter import *
 from PIL import ImageTk, Image
 from tratar_dados.tratamento_dados_cadastro import tratamento_registro_cadastro
 from internal.get_filhos import get_filhos
+
 global tupla
 
 def front():
@@ -12,7 +13,6 @@ def front():
     logo = ImageTk.PhotoImage(Image.open("logo.png"))
     lg = Label(image = logo)
 
-
     def cad():
         
         def confi():
@@ -21,7 +21,7 @@ def front():
                 nome.get().upper(),
                 cnpj.get().upper(),
                 contato.get().upper(),
-                nf.get().upper(),
+                nfList.get().upper(),
                 pai.get().upper(),
                 pecas.get().upper()
             )
@@ -42,7 +42,6 @@ def front():
                 nome.delete(0, 'end')
                 cnpj.delete(0, 'end') 
                 contato.delete(0, 'end')
-                nf.delete(0, 'end')
                 pai.delete(0, 'end')
                 pecas.delete(0, 'end')
 
@@ -56,6 +55,19 @@ def front():
         cadastro = Toplevel(root)
         cadastro.geometry("520x500")
         cadastro.title("Cadastro")
+
+        opcoes = ["Indicador",
+                "Assistente de Vendedor",
+                "Vendedor",
+                "Assistente de Distribuidor",
+                "Distribuidor",
+                "Distribuidor Líder",
+                "Distribuidor Senior",
+                "Distribuidor de Carreira",
+                "Distribuidor Nato"]
+
+        nfList = StringVar(cadastro)
+        nfList.set(opcoes[0])
 
         mens1 = Label(cadastro, text = "Nome Real", font = 25, padx = 50, pady = 25)
         mens2 = Label(cadastro, text = "CNPJ", font = 25, padx = 50, pady = 25)
@@ -74,7 +86,7 @@ def front():
         nome = Entry(cadastro, width = 30, font = 25)
         cnpj = Entry(cadastro, width = 30, font = 25)
         contato = Entry(cadastro, width = 30, font = 25)
-        nf = Entry(cadastro, width = 30, font = 25)
+        nf = OptionMenu(cadastro,nfList, *opcoes)
         pai = Entry(cadastro, width = 30, font = 25)
         pecas = Entry(cadastro, width = 30, font = 25)
 
@@ -99,7 +111,7 @@ def front():
             
             visu = Toplevel(visualizar)
             
-            del labels[:] # remove any previous labels from if the callback was called before
+            del labels[:] 
 
             if not cn:
                 visu.geometry("400x70")
@@ -108,18 +120,40 @@ def front():
                 volt2 = Button(visu, text = "Voltar", font = 25, command = visu.destroy)
                 volt2.pack()
                 return
-
-            cont = 0
             
+            newList = []
+            
+            nomehead = Label(visu, text = "Nome", font = 20, padx = 10, pady =10)
+            cnpjhead = Label(visu, text = "CNPJ", font = 20, padx = 10, pady =10)
+            contatohead = Label(visu, text = "Contato", font = 20, padx = 10, pady =10)
+            nivelhead = Label(visu, text = "Nível", font = 20, padx = 10, pady =10)
+            paihead = Label(visu, text = "Pai", font = 20, padx = 10, pady =10)
+            pecashead = Label(visu, text = "Peças", font = 20, padx = 10, pady =10)
+
+            nomehead.grid(row = 0, column = 0, sticky = "W" )
+            cnpjhead.grid(row = 0, column = 1, sticky = "W" )
+            contatohead.grid(row = 0, column = 2, sticky = "W" )
+            nivelhead.grid(row = 0, column = 3, sticky = "W" )
+            paihead.grid(row = 0, column = 4, sticky = "W" )
+            pecashead.grid(row = 0, column = 5, sticky = "W" )
 
             for i in cn:
+                newList.append(str(i).split(","))
 
-                labels = Label(visu, text = str(i))
-                labels.grid(row = cont, column = 0)
-                cont += 1
+            rowk = 1
 
-            xiao = Button(visu, text = "Confirmar", command = visu.destroy)
-            xiao.pack()
+            for i in newList:
+
+                column = 0
+
+                for j in i:
+                    labels = Label(visu, text = j)
+                    labels.grid(row = rowk, column = column, padx = 10, pady =10, sticky = "W")
+                    column +=1
+                rowk += 1
+
+            xiao = Button(visu, text = "Confirmar", font = 20, command = visu.destroy)
+            xiao.grid(row = rowk, column = 2)
                             
         visualizar = Toplevel(root)
         visualizar.geometry("500x120")
