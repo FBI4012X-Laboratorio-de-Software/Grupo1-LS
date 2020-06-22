@@ -53,7 +53,7 @@ def verificar_conteudo_dos_dados(
 
 
 def tratar_nome(to_be_string) -> None:
-
+    #todo verificar nome
     if not to_be_string:
         raise ErroTratamento(
             'Não foi possivel tratar o nome. Deixou em branco?'

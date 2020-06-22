@@ -1,32 +1,44 @@
-from openpyxl import load_workbook
+import pandas as pd
 import os
 from configparser import RawConfigParser
+from typing import DefaultDict
+from datetime import date
+
 
 def gera_comissao():
 
-    config = RawConfigParser()
-    config.read('.config.cfg')
-    csv_folder = config['comissoes']['comissoes_path'].split(',')
-    file_list = csv_folder
-    for file in file_list:
-        wb = load_workbook(filename=file)
-        sheet_ranges = wb['range names']
-        print(sheet_ranges['D18'].value)
+    le_dict = get_data()
+    print(le_dict)
 
-def atualiza_os_csvs():
 
+def get_data():
     config = RawConfigParser()
     config.read('.config.cfg')
     file_list = config['comissoes']['comissoes_path'].split(',')
+    nomes_vend = []
+    data_pedidos = []
+    real_valor_pecas = []
+    valor_a_pagar = []
 
     for file in file_list:
+        valor_pecas = []
+        planilha = pd.read_excel(file, header=6)
+        nomes_vend.extend(list(planilha['VENDEDOR'].dropna()))
+        data_pedidos.extend(list(planilha['DATA PEDIDO'].dropna()))
+        valor_pecas.append(list(planilha['VALOR PEÇA'].dropna()))
+        valor_a_pagar.extend(list(planilha['VALOR'].dropna()))
+        for i in valor_pecas[0]:
+            if i != ' ':
+                real_valor_pecas.append(i)
 
-        df = pd.read_excel(file, sheet_name=None)
-        file_name = f'{config["comissoes"]["sheet"]}_{file}'
-        zie_file_name = os.path.join('csv', file_name.split('.')[0] + '.csv')
-        df[config['comissoes']['sheet']].to_csv(zie_file_name)
+    le_dict: DefaultDict[str, list] = DefaultDict(list)
 
-    return file_list
+    for (nome, data, peca, valor) in zip(nomes_vend, data_pedidos, real_valor_pecas, valor_a_pagar):
+
+        le_dict[nome].append((data.date(), peca, valor))
+
+    return le_dict
+
 
 if __name__ == "__main__":
     gera_comissao()
