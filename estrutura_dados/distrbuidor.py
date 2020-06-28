@@ -1,4 +1,7 @@
 from datetime import date
+from tratar_dados.load_niveis import load_niveis_data
+from configparser import RawConfigParser
+
 
 class Distribuidor(object):
     def __init__(self, *args) -> None:
@@ -53,3 +56,27 @@ class Distribuidor(object):
 
     def get_pecas_vendidas(self, pecas_vendidas) -> float:
         self._pecas_vendidas = pecas_vendidas
+    
+    def get_porcentagen_vendas(self):
+        niveis_data = load_niveis_data()
+
+        key = list(niveis_data['NIVEL'].keys())[list(niveis_data['NIVEL'].values()).index(self._nivel)]
+
+        desconto = float(niveis_data['DESCONTO'][key])
+        comissao = float(niveis_data['COMISSAO'][key])
+        lucro = float(niveis_data['LUCRO'][key])
+
+        return desconto, comissao, lucro
+
+
+    def get_porcentagem_filhos(self) -> list:
+
+        parser = RawConfigParser()
+        parser.read('.filhos_lucros.cfg')
+        try:
+            string_list = parser.get('valores', self._nivel).split(',')
+
+        except Exception:
+            return []
+
+        return string_list
