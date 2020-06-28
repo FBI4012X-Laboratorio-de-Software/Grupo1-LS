@@ -56,14 +56,14 @@ def tratar_nome(to_be_string) -> None:
     #todo verificar nome
     if not to_be_string:
         raise ErroTratamento(
-            'Não foi possivel tratar o nome. Deixou em branco?'
+            'Nome em branco.'
         )
 
     try:
         to_be_string = str(to_be_string)
     except Exception:
         raise ErroTratamento(
-            'Não foi possivel tratar o nome. Digitou Corretamente?'
+            'Nome em branco.'
         )
 
     to_be_string = str(to_be_string)
@@ -112,7 +112,6 @@ def tratar_cnpj(cnpj: str):
             'CNPJ digitado incorretamente.'
         )
 
-
 def cpf_iter(algorismos: list, start: int):
     soma = 0
     j = 2
@@ -131,14 +130,14 @@ def tratar_nivel(nivel: str):
 
     if not nivel:
         raise ErroTratamento(
-            'Não foi possivel tratar o nivel. Deixou em branco?'
+            'Nível não encontrado.'
         )
 
     niveis_dict = load_niveis_data()
 
     if not nivel.upper() in niveis_dict['NIVEL'].values():
         raise ErroTratamento(
-            'Não foi possivel Encontrar o nivel inserido'
+            'Nível não encontrado.'
         )
 
 
@@ -153,7 +152,7 @@ def tratar_nome_pai(nome_pai: str, dados_dist):
             return
 
     raise ErroTratamento(
-        'Não foi possivel Encontrar o nome do pai, Digitou Corretamente'
+        '"Pai" não encontrado.'
     )
 
 
@@ -166,6 +165,28 @@ def tratar_float(to_be_float: str):
         to_be_float = float(to_be_float)
     except Exception:
         raise ErroTratamento(
-            'Não foi possivel tratar as peças. Digitou Corretamente?'
+            'Formato do valor inserido incorreto.'
         )
     return to_be_float
+
+
+def find_dis(str_recebido):
+
+    if str_recebido == '':
+        return False
+
+    dist_dao = DistribuidorDAO()
+    dados_dist = dist_dao.load_data()
+
+    try:
+        str_recebido = int(str_recebido)
+    except Exception:
+        for distribuidor in dados_dist:
+            if distribuidor.get_dist_nome() == str_recebido:
+                return True
+        return False
+    
+    for distribuidor in dados_dist:
+        if distribuidor.get_cnpj() == str_recebido:
+            return True
+    return False         

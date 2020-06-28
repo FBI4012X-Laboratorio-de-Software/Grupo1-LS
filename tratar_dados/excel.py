@@ -9,6 +9,7 @@ class Excellent():
     _numpedido = 0
 
     def __init__(self, caminho):
+
         try:
             planilha = pd.read_excel(caminho)
             linha_pagar = planilha.loc[planilha['Unnamed: 7'].isin(['A PAGAR', 'a pagar'])]
