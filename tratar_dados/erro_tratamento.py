@@ -1,5 +1,6 @@
 import logging
 
+
 class ErroTratamento(Exception):
     def __init__(self, msg) -> None:
         self._msg = msg
