@@ -17,7 +17,7 @@ def atualizar_dados(
 
     return dados_atualizados
 
-def atualizar_distribuidor (dist : Distribuidor, pecas):
+def atualizar_distribuidor(dist : Distribuidor, pecas):
     
     pecas = dist.get_pecas_vendidas() + pecas
     nivel = dist.get_nivel()

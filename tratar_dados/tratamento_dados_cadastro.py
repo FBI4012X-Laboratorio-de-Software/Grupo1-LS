@@ -53,7 +53,7 @@ def verificar_conteudo_dos_dados(
 
 
 def tratar_nome(to_be_string) -> None:
-
+    #todo verificar nome
     if not to_be_string:
         raise ErroTratamento(
             'Nome em branco.'
@@ -161,13 +161,13 @@ def tratar_float(to_be_float: str):
     if len(to_be_float.split(',')) == 2:
         string_am_format = to_be_float.split(',')
         to_be_float = f'{string_am_format[0]}.{string_am_format[1]}'
-
     try:
         to_be_float = float(to_be_float)
     except Exception:
         raise ErroTratamento(
             'Formato do valor inserido incorreto.'
         )
+    return to_be_float
 
 
 def find_dis(str_recebido):
@@ -189,4 +189,4 @@ def find_dis(str_recebido):
     for distribuidor in dados_dist:
         if distribuidor.get_cnpj() == str_recebido:
             return True
-    return False          
+    return False         
