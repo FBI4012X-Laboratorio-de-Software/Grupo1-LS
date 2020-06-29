@@ -18,7 +18,7 @@ class DistribuidorDAO(DAO):
                 try:
                     lista_objeto = pickle.load(load_file)
                 except Exception as e:
-                    logging.warning('Erro ao carregar arquivo de distribuidor: ' + e)
+                    logging.warning('Erro ao carregar arquivo de distribuidor: ' + str(e))
         else:
             logging.error('Erro ao carregar arquivo de distribuidor: caminho ' + file_path + ' nao existe')    
 
@@ -37,7 +37,7 @@ class DistribuidorDAO(DAO):
                 try:
                     pickle.dump(lista_objeto, load_file)
                 except Exception as e:
-                    logging.warning('Erro ao salvar arquivo de distribuidor: ' + e)
+                    logging.warning('Erro ao salvar arquivo de distribuidor: ' + str(e))
         else:
             logging.error('Erro ao salvar arquivo de distribuidor: caminho ' + file_path + ' nao existe')   
 
