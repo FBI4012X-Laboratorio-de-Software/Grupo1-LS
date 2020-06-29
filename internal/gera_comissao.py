@@ -46,6 +46,7 @@ def gera_comissao(name: str, sd: datetime, ed: datetime) -> Union[str, float]:
                                 comissao_ini += val[2] * comissao
                             else:
                                 comissao_ini += val[2] * comissao * float(lista_valores[filho_num - 1])
+        faz_csv(comissao, sd.date(), ed.date(), filhos_list[0][0], pecas)
         return float(comissao_ini)
     else:
         return 'Nome Não Encontrado'
@@ -78,6 +79,9 @@ def get_data() -> dict:
 
     return le_dict
 
+def faz_csv(data_ini, data_fim, nome):
+    with open('dados_relatorio.csv', 'w') as file:
+        file.
 
 if __name__ == "__main__":
     gera_comissao()
