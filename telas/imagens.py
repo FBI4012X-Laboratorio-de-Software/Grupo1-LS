@@ -3,6 +3,7 @@ from tkinter import ttk
 from datetime import datetime
 from PIL import ImageTk, Image
 from tratar_dados.tratamento_dados_cadastro import tratamento_registro_cadastro, find_dis
+from internal.gera_comissao import gera_comissao
 from internal.get_filhos import get_filhos
 
 global tupla
@@ -57,9 +58,11 @@ def front():
 
                 cadsuc = Label(sucesso, text = "Cadastro feito com sucesso!", font = 25, padx = 25, pady = 10)
                 ok2 = Button(sucesso, text = "Confirmar", font = 25, command = sucesso.destroy)
+                espaco900 = Label(sucesso, text = " ")
 
                 cadsuc.grid()
                 ok2.grid()
+                espaco900.grid()
             return
 
         cadastro = Toplevel(root)
@@ -84,6 +87,7 @@ def front():
         mens4 = Label(cadastro, text = "Nível de Formação", font = 50, padx = 25, pady = 25)
         mens5 = Label(cadastro, text = "Nome do Pai", font = 25, padx = 50, pady = 25)
         mens6 = Label(cadastro, text = "Peças vendidas", font = 25, padx = 50, pady = 25)
+        espaco360 = Label(cadastro, text = " ")
 
         mens1.grid(row = 0, column = 0)
         mens2.grid(row = 1, column = 0)
@@ -92,11 +96,11 @@ def front():
         mens5.grid(row = 4, column = 0)
         mens6.grid(row = 5, column = 0)
 
-        nome = Entry(cadastro, width = 30, font = 25)
-        cnpj = Entry(cadastro, width = 30, font = 25)
-        contato = Entry(cadastro, width = 30, font = 25)
-        pai = Entry(cadastro, width = 30, font = 25)
-        pecas = Entry(cadastro, width = 30, font = 25)
+        nome = Entry(cadastro, width = 40, font = 25)
+        cnpj = Entry(cadastro, width = 40, font = 25)
+        contato = Entry(cadastro, width = 40, font = 25)
+        pai = Entry(cadastro, width = 40, font = 25)
+        pecas = Entry(cadastro, width = 40, font = 25)
 
         nome.grid(row = 0, column = 1)
         cnpj.grid(row = 1, column = 1)
@@ -104,6 +108,7 @@ def front():
         comboExample.grid(row = 3, column = 1)
         pai.grid(row = 4, column = 1)
         pecas.grid(row = 5, column = 1)
+        espaco360.grid(row = 0, column = 2)
 
         confirmar = Button(cadastro, text = "Confirmar", font = 25, command = confi)
         confirmar.grid(row = 6, column = 1)
@@ -126,7 +131,7 @@ def front():
 
             if not cn:
                 visu.geometry("+{}+{}".format(positionRight, positionDown))
-                nomeNulo = Label(visu, text = "Nome em branco ou nenhuma distribuidor encontrado.", font = 25)
+                nomeNulo = Label(visu, text = "Nome em branco ou nenhuma distribuidor encontrado.", font = 25, padx = 20)
                 nomeNulo.grid()
                 volt2 = Button(visu, text = "Voltar", font = 25, command = visu.destroy)
                 volt2.grid()
@@ -168,6 +173,9 @@ def front():
 
             xiao = Button(visu, text = "Confirmar", font = 20, command = visu.destroy)
             xiao.grid(row = rowk, column = 2, columnspan = 2)
+
+            espaco13 = Label(visu, text = " ")
+            espaco13.grid()
                             
         visualizar = Toplevel(root)
         visualizar.geometry("+{}+{}".format(positionRight, positionDown))
@@ -175,7 +183,7 @@ def front():
         
         mens7 = Label(visualizar, text = "Informe o CNPJ ou nome.", font = 25, padx = 50, pady = 25)
         mens7.grid(row = 0, column = 0)
-        cnpjf = Entry(visualizar, width = 20, font = 25)
+        cnpjf = Entry(visualizar, width = 40, font = 25)
         cnpjf.grid(row = 0, column = 1)
         espaco4 = Label(visualizar, text = " ")
         espaco4.grid(row = 0, column = 2)
@@ -222,13 +230,13 @@ def front():
                 aviso = Toplevel(gera)
                 aviso.geometry("+{}+{}".format(positionRight, positionDown))
 
-                dataerrada = Label(aviso, text = "Data inicial seleciona inexistente.", font = 25, padx = 25, pady = 10) 
-                dataerrada.pack()
+                dataerradai = Label(aviso, text = "Data inicial seleciona inexistente.", font = 25, padx = 25, pady = 10) 
+                dataerradai.pack()
 
                 botao_voltar = Button(aviso, text = "Confirmar", font = 25, command = aviso.destroy)
                 botao_voltar.pack()
 
-                espaco245 = Label(dataerrada, text = " ")
+                espaco245 = Label(dataerradai, text = " ")
                 espaco245.pack()
                 return
 
@@ -239,18 +247,32 @@ def front():
             try:
                 date_time_objf = datetime.strptime(datainirec, '%d/%m/%Y')
             except ValueError :
-                aviso = Toplevel(gera)
-                aviso.geometry("+{}+{}".format(positionRight, positionDown))
+                aviso1 = Toplevel(gera)
+                aviso1.geometry("+{}+{}".format(positionRight, positionDown))
 
-                dataerrada = Label(aviso, text = "Data final seleciona inexistente.", font = 25, padx = 25, pady = 10) 
-                dataerrada.pack()
+                dataerradaf = Label(aviso1, text = "Data final seleciona inexistente.", font = 25, padx = 25, pady = 10) 
+                dataerradaf.pack()
 
-                botao_voltar = Button(aviso, text = "Confirmar", font = 25, command = aviso.destroy)
+                botao_voltar = Button(aviso1, text = "Confirmar", font = 25, command = aviso1.destroy)
                 botao_voltar.pack()
 
-                espaco245 = Label(dataerrada, text = " ")
-                espaco245.pack()
+                espaco246 = Label(dataerradaf, text = " ")
+                espaco246.pack()
                 return
+
+            comissao = gera_comissao(distribuidor_seleciona, date_time_obj, date_time_objf)
+            comissao_tela = Toplevel(gera)
+            comissao_tela.geometry("+{}+{}".format(positionRight, positionDown))
+
+            ind_comissao = Label(comissao_tela, text = f'Comissão gerada: {comissao}', font = 25, padx = 25, pady = 10)
+            ind_comissao.pack()
+
+            destruir_tela = Button(comissao_tela, text = "Confirmar", font = 25, command = comissao_tela.destroy)
+            destruir_tela.pack()
+
+            espaco23 = Label(comissao_tela, text = " ")
+            espaco23.pack()
+            print(comissao)
 
             return
 
@@ -275,7 +297,7 @@ def front():
                                                 "13","14","15","16","17","18",
                                                 "19","20","21","22","23","24",
                                                 "25","26","27","28","29","30","31"], state="readonly") 
-        dia_combo.current(datetime.today().day)
+        dia_combo.current(0)
 
         mes_combo = ttk.Combobox(gera, values=[
                                                 "Janeiro","Fevereiro","Março",
@@ -283,7 +305,7 @@ def front():
                                                 "Julho","Agosto","Setembro",
                                                 "Outubro","Novembro","Dezembro"], state = "readonly")
     
-        mes_combo.current(datetime.today().month - 2)
+        mes_combo.current(datetime.today().month - 1)
 
         currentYear = datetime.today().year
 
@@ -301,7 +323,7 @@ def front():
                                                 "13","14","15","16","17","18",
                                                 "19","20","21","22","23","24",
                                                 "25","26","27","28","29","30","31"], state="readonly") 
-        dia_combof.current(datetime.today().day)
+        dia_combof.current(datetime.today().day - 1)
 
         mes_combof = ttk.Combobox(gera, values=[
                                                 "Janeiro","Fevereiro","Março",
@@ -343,11 +365,11 @@ def front():
         altCadastro = Toplevel(root)
         altCadastro.title("Alterar Cadastro")
         
-    Cadas_Dist = Button(root, text = "Cadastrar Distribuidor", font = 40, command = cad)
-    Alt_Dist = Button(root, text = "Alterar Distribuidor", font = 40, command = alt)
-    Ger_Rel = Button(root, text = "Gerar Relatório", font = 40, command = gerar)
-    Vis_Dist = Button(root, text = "Visualizar Distribuidor", font = 40, command = vis)
-    Sair = Button(root, text = "Sair",  font = 40, command = root.destroy)
+    Cadas_Dist = Button(root, text = "Cadastrar Distribuidor", font = 100, command = cad)
+    Alt_Dist = Button(root, text = "Alterar Distribuidor", font = 100, command = alt)
+    Ger_Rel = Button(root, text = "Gerar Relatório", font = 100, command = gerar)
+    Vis_Dist = Button(root, text = "Visualizar Distribuidor", font = 100, command = vis)
+    Sair = Button(root, text = "Sair",  font = 100, command = root.destroy)
 
     prenche = Label(root, text = "     ")
     prenche2 = Label(root, text = "     ")
