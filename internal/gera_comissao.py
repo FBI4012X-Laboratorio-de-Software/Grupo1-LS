@@ -21,6 +21,8 @@ def gera_comissao(name: str, sd: datetime, ed: datetime) -> Union[str, float]:
     if name in le_dict.keys() and isinstance(filhos_list, list):
         filhos_list: List[Distribuidor] = name_compare_com_nivel(name)
         comissao_ini = 0
+        pecas = 0
+        pecas_filhos = 0
 
         for dist, filho_num in filhos_list:
 
@@ -34,19 +36,23 @@ def gera_comissao(name: str, sd: datetime, ed: datetime) -> Union[str, float]:
 
                 for val in values:
                     if val[0] >= sd.date() and val[0] < ed.date():
-
+                    
                         if math.isnan(comissao):
 
                             if filho_num == 0:
                                 comissao_ini += val[2] * lucro
                             else:
                                 comissao_ini += val[2] * lucro * float(lista_valores[filho_num - 1])
+
                         else:
                             if filho_num == 0:
                                 comissao_ini += val[2] * comissao
+
                             else:
                                 comissao_ini += val[2] * comissao * float(lista_valores[filho_num - 1])
-        faz_csv(comissao, sd.date(), ed.date(), filhos_list[0][0], pecas)
+                    
+
+        faz_csv(filhos_list[0][0], sd.date(), ed.date(), comissao, pecas, pecas_filho)
         return float(comissao_ini)
     else:
         return 'Nome Não Encontrado'
@@ -79,9 +85,10 @@ def get_data() -> dict:
 
     return le_dict
 
-def faz_csv(data_ini, data_fim, nome):
-    with open('dados_relatorio.csv', 'w') as file:
-        file.
+def faz_csv(comissao, data_ini, data_fim, nome, pecas, pecas_filho):
+
+    with open('dados_relatorio.csv', 'a') as file:
+        file.write(f'{nome},{data_ini},{data_fim},{comissao},{pecas},{pecas_filho}\n')
 
 if __name__ == "__main__":
     gera_comissao()
