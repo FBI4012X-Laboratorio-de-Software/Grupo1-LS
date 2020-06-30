@@ -131,7 +131,7 @@ def front():
 
             if not cn:
                 visu.geometry("+{}+{}".format(positionRight, positionDown))
-                nomeNulo = Label(visu, text = "Nome em branco ou nenhuma distribuidor encontrado.", font = 25, padx = 20)
+                nomeNulo = Label(visu, text = "Nome em branco ou nenhum distribuidor encontrado.", font = 25, padx = 20)
                 nomeNulo.grid()
                 volt2 = Button(visu, text = "Voltar", font = 25, command = visu.destroy)
                 volt2.grid()
@@ -142,6 +142,8 @@ def front():
             
             newList = []
             
+            visu.geometry("+{}+{}".format(positionRight, positionDown))
+
             nomehead = Label(visu, text = "Nome", font = 20, padx = 10, pady =10)
             cnpjhead = Label(visu, text = "CNPJ", font = 20, padx = 10, pady =10)
             contatohead = Label(visu, text = "Contato", font = 20, padx = 10, pady =10)
