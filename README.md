@@ -26,6 +26,6 @@ O programa salva o csv de relatório na pasta csv e configurações devem ser de
 
 Para cadastrar um destribuidor deve-se haver um cnpj válido para adicionar com os dados do cadastrado.
 
-A visualização do distribuidor listará os filhos de um registrado de escolha que o usúario quiser averiguar mostrando seus dados filhos, bisnetos e netos para se certificar do resultado obtido ranto no cadastro quanto no geração de relatório.
+A visualização do distribuidor listará os filhos de um registrado de escolha que o usúario quiser averiguar mostrando seus dados filhos, bisnetos e netos para se certificar do resultado obtido tanto no cadastro quanto na geração de relatório.
 
 Copyright 2020 César Carpeggiani, Franco Gatelli, Rubens Onzi e Vincius Casagrande
