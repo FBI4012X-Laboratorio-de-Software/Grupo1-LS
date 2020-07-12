@@ -8,6 +8,10 @@ Para usar o programa, instale os pacotes necessários usando 'pip install -r req
 pip install -r requirements.txt
 ```
 
+## Testes
+
+Para execução de testes deve-se executar o test.py.
+
 ## Utilização
 
 A partir do menu principal, são apresentadas 4 opções:
@@ -16,6 +20,12 @@ A partir do menu principal, são apresentadas 4 opções:
 * Gerar Relatório
 * Visualizar Distribuidor
 
-Apenas o menu de cadastro funciona no momento, possibilitando informar dados do distribuidor e checar a sua validade.
+Todos funcionam exceto alterar distribuidor.
+
+O programa salva o csv de relatório na pasta csv e configurações devem ser definidas no arquivo `config.cfg`.
+
+Para cadastrar um destribuidor deve-se haver um cnpj válido para adicionar com os dados do cadastrado.
+
+A visualização do distribuidor listará os filhos de um registrado de escolha que o usúario quiser averiguar mostrando seus dados filhos, bisnetos e netos para se certificar do resultado obtido ranto no cadastro quanto no geração de relatório.
 
 Copyright 2020 César Carpeggiani, Franco Gatelli, Rubens Onzi e Vincius Casagrande
